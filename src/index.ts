@@ -1,5 +1,6 @@
 import express from 'express';
 import authRouter from './feature/auth/infrastructure/router/auth_router';
+import userRouter from './feature/users/infrastructure/router/users_router';
 import './core/config';
 import { connect, startBackgroundReconnect } from './core/db';
 import healthRouter from './core/health_route';
@@ -8,6 +9,7 @@ const app = express();
 app.use(express.json());
 
 app.use('/auth', authRouter);
+app.use('/users', userRouter);
 app.use('/', healthRouter);
 
 const port = process.env.PORT || 3000;
