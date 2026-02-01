@@ -13,6 +13,13 @@ export class MySQLUsersRepositoryImpl implements IUsersRepository {
     return User.fromRow(rows[0] ?? null);
   }
 
+  async findAll(): Promise<User[]> {
+    const rows = await query('SELECT * FROM users');
+    return rows
+      .map((row: any) => User.fromRow(row))
+      .filter((user): user is User => user !== null);
+  }
+
   async create(user: User): Promise<void> {
     await query('INSERT INTO users (user_name, password, hash_method) VALUES (?, ?, ?)', [
       user.userName,

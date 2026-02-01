@@ -10,5 +10,5 @@ Payload:
 }
 
 Notes:
-- Passwords are stored hashed with `bcrypt` and `hash_method` = 'bcrypt'.
+- Passwords are stored hashed with `SHA1` and `hash_method` = 'SHA1'.
 - Routes require DB connection. The router uses `dbRequiredMiddleware` and `adminOnlyMiddleware` for create.

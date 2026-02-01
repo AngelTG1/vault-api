@@ -1,7 +1,6 @@
 import { IUsersRepository } from '../../domain/repository/users_repository';
 import { User } from '../../domain/entity/user';
-import { bcryptService } from '../../../auth/application/services/bcryptService';
-import { v4 as uuidv4 } from 'uuid';
+import { createHash } from 'crypto';
 
 export class CreateUserUsecase {
   constructor(private repo: IUsersRepository) {}
@@ -10,8 +9,9 @@ export class CreateUserUsecase {
     const existing = await this.repo.findByUsername(userName);
     if (existing) throw new Error('Username already exists');
 
-    const hash = await bcryptService.hash(password);
-    const user = new User({ userName, passwordHash: hash, hashMethod: 'bcrypt' });
+    const hashMethod = 'SHA1';
+    const hash = createHash('sha1').update(password).digest('hex');
+    const user = new User({ userName, passwordHash: hash, hashMethod });
 
     await this.repo.create(user);
 

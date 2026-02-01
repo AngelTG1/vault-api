@@ -1,15 +1,19 @@
 import express from 'express';
+import cors from 'cors';
 import authRouter from './feature/auth/infrastructure/router/auth_router';
 import userRouter from './feature/users/infrastructure/router/users_router';
+import pginaLogRouter from './feature/pginalog/infrastructure/router/pginalog_router';
 import './core/config';
 import { connect, startBackgroundReconnect } from './core/db';
 import healthRouter from './core/health_route';
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 
 app.use('/auth', authRouter);
 app.use('/users', userRouter);
+app.use('/pginalog', pginaLogRouter);
 app.use('/', healthRouter);
 
 const port = process.env.PORT || 3000;
