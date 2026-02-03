@@ -9,6 +9,7 @@ export class GetUsersUsecase {
       userId: user.userId,
       userName: user.userName,
       hashMethod: user.hashMethod,
+      email: user.email,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
     }));

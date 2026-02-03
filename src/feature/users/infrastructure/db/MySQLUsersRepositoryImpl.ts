@@ -21,10 +21,11 @@ export class MySQLUsersRepositoryImpl implements IUsersRepository {
   }
 
   async create(user: User): Promise<void> {
-    await query('INSERT INTO users (user_name, password, hash_method) VALUES (?, ?, ?)', [
+    await query('INSERT INTO users (user_name, password, hash_method, email) VALUES (?, ?, ?, ?)', [
       user.userName,
       user.passwordHash,
       user.hashMethod,
+      user.email,
     ]);
   }
 }

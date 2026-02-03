@@ -3,6 +3,7 @@ export type UserProps = {
   userName: string;
   passwordHash: string;
   hashMethod: string;
+  email: string | null;
   createdAt?: Date;
   updatedAt?: Date;
 };
@@ -12,6 +13,7 @@ export class User {
   userName: string;
   passwordHash: string;
   hashMethod: string;
+  email: string | null;
   createdAt?: Date;
   updatedAt?: Date;
 
@@ -20,6 +22,7 @@ export class User {
     this.userName = props.userName;
     this.passwordHash = props.passwordHash;
     this.hashMethod = props.hashMethod;
+    this.email = props.email;
     this.createdAt = props.createdAt;
     this.updatedAt = props.updatedAt;
   }
@@ -30,6 +33,7 @@ export class User {
       userName: this.userName,
       passwordHash: this.passwordHash,
       hashMethod: this.hashMethod,
+      email: this.email,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
     };
@@ -42,6 +46,7 @@ export class User {
       userName: row.user_name,
       passwordHash: row.password,
       hashMethod: row.hash_method,
+      email: row.email,
       createdAt: row.created_at ? new Date(row.created_at) : undefined,
       updatedAt: row.updated_at ? new Date(row.updated_at) : undefined,
     });
