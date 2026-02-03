@@ -6,9 +6,20 @@ import { bcryptService } from '../services/bcryptService';
 export class RegisterAuthUsecase {
   constructor(private repo: IAuthRepository) {}
 
+  private isValidEmail(email: string): boolean {
+    // Simple email validation - accepts any domain
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+
   async execute({ username, fullName, email, password, isAdmin = false }: { username: string; fullName: string, email?: string; password: string; isAdmin?: boolean }) {
     const existing = await this.repo.findByUsername(username);
     if (existing) throw new Error('Username already exists');
+
+    // Validate email format if provided
+    if (email && !this.isValidEmail(email)) {
+      throw new Error('Invalid email format');
+    }
 
     const passwordHash = await bcryptService.hash(password);
     const auth = new Auth({
