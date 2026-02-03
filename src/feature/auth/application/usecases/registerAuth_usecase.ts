@@ -6,7 +6,7 @@ import { bcryptService } from '../services/bcryptService';
 export class RegisterAuthUsecase {
   constructor(private repo: IAuthRepository) {}
 
-  async execute({ username, email, password, isAdmin = false }: { username: string; email?: string; password: string; isAdmin?: boolean }) {
+  async execute({ username, fullName, email, password, isAdmin = false }: { username: string; fullName: string, email?: string; password: string; isAdmin?: boolean }) {
     const existing = await this.repo.findByUsername(username);
     if (existing) throw new Error('Username already exists');
 
@@ -14,6 +14,7 @@ export class RegisterAuthUsecase {
     const auth = new Auth({
       id: uuidv4(),
       username,
+      fullName,
       email: email ?? null,
       passwordHash,
       isAdmin,
@@ -21,6 +22,6 @@ export class RegisterAuthUsecase {
 
     await this.repo.create(auth);
 
-    return { id: auth.id, username: auth.username, email: auth.email, isAdmin: auth.isAdmin };
+    return { id: auth.id, username: auth.username, fullName: auth.fullName, email: auth.email, isAdmin: auth.isAdmin };
   }
 }

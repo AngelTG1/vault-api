@@ -12,8 +12,8 @@ export class LoginAuthUsecase {
     const ok = await bcryptService.compare(password, user.passwordHash);
     if (!ok) throw new Error('Invalid credentials');
 
-    const token = jwtService.sign({ sub: user.id, username: user.username, isAdmin: user.isAdmin });
+    const token = jwtService.sign({ sub: user.id, username: user.username, fullName: user.fullName, isAdmin: user.isAdmin });
 
-    return { token, user: { id: user.id, username: user.username, isAdmin: user.isAdmin } };
+    return { token, user: { id: user.id, username: user.username, fullName: user.fullName, isAdmin: user.isAdmin } };
   }
 }

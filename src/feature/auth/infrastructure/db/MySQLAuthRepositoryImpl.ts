@@ -21,15 +21,15 @@ export class MySQLAuthRepositoryImpl implements IAuthRepository {
 
   async create(user: Auth): Promise<void> {
     await query(
-      'INSERT INTO auth (id, username, email, password_hash, is_admin) VALUES (?, ?, ?, ?, ?)',
-      [user.id, user.username, user.email, user.passwordHash, user.isAdmin ? 1 : 0]
+      'INSERT INTO auth (id, username, full_name, email, password_hash, is_admin) VALUES (?, ?, ?, ?, ?, ?)',
+      [user.id, user.username, user.fullName, user.email, user.passwordHash, user.isAdmin ? 1 : 0]
     );
   }
 
   async update(user: Auth): Promise<void> {
     await query(
-      'UPDATE auth SET username = ?, email = ?, password_hash = ?, is_admin = ? WHERE id = ?',
-      [user.username, user.email, user.passwordHash, user.isAdmin ? 1 : 0, user.id]
+      'UPDATE auth SET username = ?, full_name = ?, email = ?, password_hash = ?, is_admin = ? WHERE id = ?',
+      [user.username, user.fullName, user.email, user.passwordHash, user.isAdmin ? 1 : 0, user.id]
     );
   }
 }
