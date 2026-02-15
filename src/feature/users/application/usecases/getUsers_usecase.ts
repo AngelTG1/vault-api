@@ -10,6 +10,9 @@ export class GetUsersUsecase {
       userName: user.userName,
       hashMethod: user.hashMethod,
       email: user.email,
+      name: user.name,
+      apellidoPaterno: user.apellidoPaterno,
+      apellidoMaterno: user.apellidoMaterno,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
     }));

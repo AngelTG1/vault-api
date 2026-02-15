@@ -16,7 +16,7 @@ app.use('/users', userRouter);
 app.use('/pginalog', pginaLogRouter);
 app.use('/', healthRouter);
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3002;
 
 (async () => {
   try {
