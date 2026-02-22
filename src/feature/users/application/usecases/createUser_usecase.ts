@@ -15,6 +15,15 @@ export class CreateUserUsecase {
 
     await this.repo.create(user);
 
-    return { userName: user.userName, hashMethod: user.hashMethod, email: user.email, name: user.name, apellidoPaterno: user.apellidoPaterno, apellidoMaterno: user.apellidoMaterno};
+    return {
+      userName: user.userName,
+      hashMethod: user.hashMethod,
+      email: user.email,
+      name: user.name,
+      apellidoPaterno: user.apellidoPaterno,
+      apellidoMaterno: user.apellidoMaterno,
+      isActive: user.isActive,
+      desactivedAt: user.desactivedAt,
+    };
   }
 }

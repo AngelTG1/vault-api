@@ -21,7 +21,7 @@ export class MySQLUsersRepositoryImpl implements IUsersRepository {
   }
 
   async create(user: User): Promise<void> {
-    await query('INSERT INTO users (user_name, password, hash_method, email, name, apellido_paterno, apellido_materno) VALUES (?, ?, ?, ?, ?, ?, ?)', [
+    await query('INSERT INTO users (user_name, password, hash_method, email, name, apellido_paterno, apellido_materno, is_active, desactived_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', [
       user.userName,
       user.passwordHash,
       user.hashMethod,
@@ -29,6 +29,12 @@ export class MySQLUsersRepositoryImpl implements IUsersRepository {
       user.name,
       user.apellidoPaterno, 
       user.apellidoMaterno,
+      user.isActive ? 1 : 0,
+      user.desactivedAt,
     ]);
+  }
+
+  async updateActivation(userId: number, isActive: boolean, desactivedAt: Date | null): Promise<void> {
+    await query('UPDATE users SET is_active = ?, desactived_at = ? WHERE user_id = ?', [isActive ? 1 : 0, desactivedAt, userId]);
   }
 }

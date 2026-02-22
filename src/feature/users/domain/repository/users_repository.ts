@@ -5,4 +5,5 @@ export interface IUsersRepository {
   findById(userId: number): Promise<User | null>;
   findAll(): Promise<User[]>;
   create(user: User): Promise<void>;
+  updateActivation(userId: number, isActive: boolean, desactivedAt: Date | null): Promise<void>;
 }

@@ -7,6 +7,8 @@ export type UserProps = {
   name: string;
   apellidoPaterno: string,
   apellidoMaterno: string,
+  isActive?: boolean;
+  desactivedAt?: Date | null;
   createdAt?: Date;
   updatedAt?: Date;
 };
@@ -20,6 +22,8 @@ export class User {
   name: string;
   apellidoPaterno: string;
   apellidoMaterno: string;
+  isActive: boolean;
+  desactivedAt: Date | null;
   createdAt?: Date;
   updatedAt?: Date;
 
@@ -32,8 +36,20 @@ export class User {
     this.name = props.name;
     this.apellidoPaterno = props.apellidoPaterno;
     this.apellidoMaterno = props.apellidoMaterno;
+    this.isActive = props.isActive ?? true;
+    this.desactivedAt = props.desactivedAt ?? null;
     this.createdAt = props.createdAt;
     this.updatedAt = props.updatedAt;
+  }
+
+  deactivate() {
+    this.isActive = false;
+    this.desactivedAt = new Date();
+  }
+
+  activate() {
+    this.isActive = true;
+    this.desactivedAt = null;
   }
 
   toPrimitives() {
@@ -46,6 +62,8 @@ export class User {
       name: this.name,
       apellidoPaterno: this.apellidoPaterno,
       apellidoMaterno: this.apellidoMaterno,
+      isActive: this.isActive,
+      desactivedAt: this.desactivedAt,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
     };
@@ -62,6 +80,8 @@ export class User {
       name: row.name,
       apellidoPaterno: row.apellido_paterno,
       apellidoMaterno: row.apellido_materno,
+      isActive: row.is_active !== undefined ? Boolean(row.is_active) : true,
+      desactivedAt: row.desactived_at ? new Date(row.desactived_at) : null,
       createdAt: row.created_at ? new Date(row.created_at) : undefined,
       updatedAt: row.updated_at ? new Date(row.updated_at) : undefined,
     });

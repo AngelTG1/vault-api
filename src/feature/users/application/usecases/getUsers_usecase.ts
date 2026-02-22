@@ -13,6 +13,8 @@ export class GetUsersUsecase {
       name: user.name,
       apellidoPaterno: user.apellidoPaterno,
       apellidoMaterno: user.apellidoMaterno,
+      isActive: user.isActive,
+      desactivedAt: user.desactivedAt,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
     }));
